@@ -21,7 +21,7 @@ class Concierge:
         if self.ConfigCheck():
             configs = open("configs.tuser")
             data = configs.readlines()
-            res = requests.post("https://byed.ru/tuser/base/newuser", data={
+            res = requests.post("https://ziplit.online/tuser/base/newuser", data={
                 "login": data[0].replace("\n", ""),
                 "password": data[1].replace("\n", ""),
                 "table": data[2].replace("\n", ""),
