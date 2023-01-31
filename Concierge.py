@@ -2,6 +2,13 @@ import os.path
 import requests
 
 
+class OperationStatus:
+    def __init__(self, ok, systemVerbose=None, errorCode=None):
+        self.ok = ok
+        self.systemVerbose = systemVerbose
+        self.errorCode = errorCode
+
+
 class Concierge:
     def __init__(self):
         if self.ConfigCheck():
@@ -11,13 +18,12 @@ class Concierge:
             self._pass = data[1]
             self._base = data[2]
         else:
-            print("[CONCIERGE] Configs file does not exist. Use 'python tuser.py create' to create base and config "
-                  "file.")
+            raise Exception(f"Tuser base error: There is no Tuser config file.")
 
     def ConfigCheck(self) -> bool:
         return os.path.exists("./configs.tuser")
 
-    def Register(self, username: str, password: str):
+    def Register(self, username: str, password: str) -> OperationStatus:
         if self.ConfigCheck():
             configs = open("configs.tuser")
             data = configs.readlines()
@@ -28,9 +34,8 @@ class Concierge:
                 "username": username,
                 "userPassword": password
             })
-            # response = res.json()
-            print (res.text)
-            # return response[0]['res'] == "ok"
-        else :
-            print("[CONCIERGE] Configs file does not exist. Use 'python tuser.py create' to create base and config "
-                  "file.")
+            response = res.json()[0]
+
+            return OperationStatus(ok=response.get("res"), systemVerbose=response.get("verbose"), errorCode=response.get("errorCode"))
+        else:
+            raise Exception(f"Tuser base error: There is no Tuser config file.")
