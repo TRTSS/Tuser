@@ -1,7 +1,7 @@
 import os
 import sys
 import requests
-
+from prettytable import PrettyTable
 
 def QuikBaseCreate():
     if os.path.exists("./configs.tuser"):
@@ -25,9 +25,50 @@ def QuikBaseCreate():
         print(f"Error appears: {data['verbose']}")
 
 
-def BaseAddCol(name: str, type: str, defaultValue):
-    pass
+def GetBaseStruct():
+    if os.path.exists("./configs.tuser"):
+        configs = open("./configs.tuser")
+        data = configs.readlines()
+        res = requests.post("https://ziplit.online/tuser/base/cols", data={
+            "login": data[0].replace("\n", ""),
+            "password": data[1].replace("\n", ""),
+            "table": data[2].replace("\n", "")
+        })
+        response = res.json()[0]
+        colsTable = PrettyTable()
+        colsTable.field_names = ["#", "Field name", "Field type"]
+        i = 1
+        for col in response['content']:
+            colsTable.add_row([i, col['Field'], col['Type']])
+            i += 1
+        print (colsTable)
+    else:
+        raise Exception(f"Tuser base error: There is no Tuser config file.")
+
+
+def AddBaseCol (colName, colType):
+    if os.path.exists("./configs.tuser"):
+        configs = open("./configs.tuser")
+        data = configs.readlines()
+        res = requests.post("https://ziplit.online/tuser/base/addcol", data={
+            "login": data[0].replace("\n", ""),
+            "password": data[1].replace("\n", ""),
+            "table": data[2].replace("\n", ""),
+            "colName": colName,
+            "colType": colType
+        })
+        response = res.json()[0]
+        if response['res']:
+            print ("Field added to Tuser base.")
+        else:
+            print (response['verbose'])
+    else:
+        raise Exception(f"Tuser base error: There is no Tuser config file.")
 
 
 if sys.argv[1] == "quik":
     QuikBaseCreate()
+if sys.argv[1] == "struct":
+    GetBaseStruct()
+if sys.argv[1] == "addfield":
+    AddBaseCol(sys.argv[2], sys.argv[3])

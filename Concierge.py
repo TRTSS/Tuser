@@ -8,12 +8,17 @@ class OperationStatus:
         self.systemVerbose = systemVerbose
         self.errorCode = errorCode
 
+class User:
+    def __init__ (self, id, username):
+        self.id = id
+        self.username = username
 
 class Concierge:
     def __init__(self):
         if self.ConfigCheck():
             configs = open("configs.tuser")
             data = configs.readlines()
+            user = None
             self._login = data[0]
             self._pass = data[1]
             self._base = data[2]
@@ -39,3 +44,9 @@ class Concierge:
             return OperationStatus(ok=response.get("res"), systemVerbose=response.get("verbose"), errorCode=response.get("errorCode"))
         else:
             raise Exception(f"Tuser base error: There is no Tuser config file.")
+
+    def LoginUser (self, username: str, password: str) -> OperationStatus:
+        if self.ConfigCheck():
+            configs = open("configs.tuser")
+            data = configs.readlines()
+
