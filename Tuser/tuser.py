@@ -4,7 +4,7 @@ import requests
 from prettytable import PrettyTable
 
 def QuikBaseCreate():
-    if os.path.exists("./configs.tuser"):
+    if os.path.exists("../configs.tuser"):
         d = input("You already have quik Tuser base connected to your project. Do you want to create another? [y/n]: ")
         if d.lower() != "y":
             print("New Tuser base creation is stopped.")
@@ -16,7 +16,7 @@ def QuikBaseCreate():
 
     keys = data.keys()
     if data['res']:
-        configFile = open("configs.tuser", 'w')
+        configFile = open("../configs.tuser", 'w')
         for i in keys:
             if i != "res":
                 configFile.write(data[i] + "\n")
@@ -26,8 +26,8 @@ def QuikBaseCreate():
 
 
 def GetBaseStruct():
-    if os.path.exists("./configs.tuser"):
-        configs = open("./configs.tuser")
+    if os.path.exists("../configs.tuser"):
+        configs = open("../configs.tuser")
         data = configs.readlines()
         res = requests.post("https://ziplit.online/tuser/base/cols", data={
             "login": data[0].replace("\n", ""),
@@ -47,8 +47,8 @@ def GetBaseStruct():
 
 
 def AddBaseCol (colName, colType):
-    if os.path.exists("./configs.tuser"):
-        configs = open("./configs.tuser")
+    if os.path.exists("../configs.tuser"):
+        configs = open("../configs.tuser")
         data = configs.readlines()
         res = requests.post("https://ziplit.online/tuser/base/addcol", data={
             "login": data[0].replace("\n", ""),

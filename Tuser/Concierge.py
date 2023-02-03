@@ -19,7 +19,7 @@ class User:
 class Concierge:
     def ConfigCheck(func):
         def newFunc(*args):
-            if os.path.exists("./configs.tuser"):
+            if os.path.exists("../configs.tuser"):
                 return func(*args)
             else:
                 raise Exception(f"Tuser base error: There is no Tuser config file.")
@@ -27,7 +27,7 @@ class Concierge:
         return newFunc
 
     def GetConfigs (self):
-        configs = open("configs.tuser")
+        configs = open("../configs.tuser")
         data = configs.readlines()
         data = [x.replace("\n", "") for x in data]
         return {"login": data[0], "password": data[1], "table": data[2]}
