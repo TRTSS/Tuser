@@ -3,6 +3,8 @@ import sys
 import requests
 from prettytable import PrettyTable
 
+LIB_FOLDER = os.path.dirname(os.path.realpath(__file__))
+
 def QuikBaseCreate():
     if os.path.exists("../configs.tuser"):
         d = input("You already have quik Tuser base connected to your project. Do you want to create another? [y/n]: ")
@@ -65,10 +67,12 @@ def AddBaseCol (colName, colType):
     else:
         raise Exception(f"Tuser base error: There is no Tuser config file.")
 
-
-if sys.argv[1] == "quik":
-    QuikBaseCreate()
-if sys.argv[1] == "struct":
-    GetBaseStruct()
-if sys.argv[1] == "addfield":
-    AddBaseCol(sys.argv[2], sys.argv[3])
+def main ():
+    if sys.argv[1] == "quick":
+        QuikBaseCreate()
+    if sys.argv[1] == "struct":
+        GetBaseStruct()
+    if sys.argv[1] == "add-field":
+        AddBaseCol(sys.argv[2], sys.argv[3])
+    if sys.argv[1] == "libpath":
+        print (LIB_FOLDER)

@@ -1,6 +1,7 @@
 import os.path
 import requests
 
+LIB_FOLDER = os.path.dirname(os.path.realpath(__file__))
 
 class OperationStatus:
     def __init__(self, ok, systemVerbose=None, errorCode=None, data=None):
@@ -8,6 +9,7 @@ class OperationStatus:
         self.systemVerbose = systemVerbose
         self.errorCode = errorCode
         self.data = data
+        print (LIB_FOLDER)
 
 
 class User:
