@@ -57,8 +57,10 @@ For create new base or complete clear existing user 'quick' command:
 Create a Concierge object. Concierge is a checkpoint for all users and connections with Tuser.
 ```python
     from Tuser.Concierge import Concierge
-    checkpoint = Concierge()
+    checkpoint = Concierge()                                                                            # in case your project has no folder
+    checkpoint = Concierge(username="some_username", password="some_password", table="some_table")      # in case of usage not from root directory (RECOMENDED)
 ```
+
 ### Concierge structure 
 Concierge is an object that store all your Tuser base data from name to pass data. Also contains user object.
 ```

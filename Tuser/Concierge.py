@@ -34,9 +34,12 @@ class Concierge:
         data = [x.replace("\n", "") for x in data]
         return {"login": data[0], "password": data[1], "table": data[2]}
 
-    def __init__(self):
+    def __init__(self, username=None, password=None, table=None):
         try:
-            data = self.GetConfigs()
+            if username is not None:
+                data = {'login': username, 'password': password, 'table': table}
+            else:
+                data = self.GetConfigs()
             self.user = User()
             self._login = data["login"]
             self._pass = data["password"]

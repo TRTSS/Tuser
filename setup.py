@@ -16,7 +16,7 @@ if os.path.isfile(reqsFile):
 
 setup(
     name="tuser",
-    version="0.1.6",
+    version="0.1.9",
     author="Daniil Baikalov",
     author_email="felix.trof@gmail.com",
     description="Tuser allows you to create databases for users of your project.",
