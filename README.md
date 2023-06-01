@@ -1,4 +1,4 @@
-# Ziplit.Tuser
+# Ziplit.Tuser (Temporarily disabled)
 ## Free quick user bases for your projects
 
 Tuser allows you to create databases for users of your project.
